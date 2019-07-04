@@ -1,0 +1,43 @@
+
+.fixedWidthFont {
+    font-family: 'Courier New', Courier, monospace 
+        SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+}
+
+.chords {
+    color: #336;
+    font-weight: bold;
+}
+.lyrics {
+    font-weight: normal;
+}
+.heading-line {
+    color: #600;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.comments {
+    color: #666;
+}
+@media print {
+    .searchTool, .songOptions {
+        display: none;
+    }
+
+    .author, .comments {
+        color: #222;
+    }
+
+    #modalTextBar {
+        display: none;
+    }
+}
+@media not print {
+    .heading-line 
+    {
+        background-color: antiquewhite;
+        margin-left: -1rem;
+        padding: .5rem;
+    }
+}

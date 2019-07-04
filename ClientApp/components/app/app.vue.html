@@ -1,0 +1,24 @@
+<template>
+    <div id='app-root' class="<!--container-fluid-->">
+        <nav-menu-component />
+
+        <div class="container body-content mt-4">
+            <main role="main" class="container mt-4">
+                <transition>
+                    <modal-loading-indicator v-show="isLoading || isNavigating"></modal-loading-indicator>
+                </transition>
+                    <transition>
+                        <router-view></router-view>
+                    </transition>
+            </main>
+            <hr />
+            <footer>
+                <p>&copy; {{ copyright.year }} {{ copyright.by }} </p>
+            </footer>
+
+        </div>
+    </div>
+</template>
+
+<style src="./app.css"></style>
+<script src="./app.ts"></script>

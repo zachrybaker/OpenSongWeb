@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "module": "es2015",
+    "moduleResolution": "node",
+    "target": "es6",
+    "sourceMap": true,
+    "skipDefaultLibCheck": true,
+    /* breaks webpack! "importHelpers": true, /* reduced code with decorators (vuex-model-decorators) */
+    "emitHelpers": true, /* for  (vuex-model-decorators) */
+    "strict": true,
+    "types": [ "jquery", "webpack-env" ],
+
+    /* from https://github.com/coding-blocks-archives/realworld-vue-typescript/blob/master/tsconfig.json */
+    "allowSyntheticDefaultImports": true,
+
+    "typeRoots": [ "node_modules/@types", "ClientApp/scripts/TypeDefs" ],
+
+    /* https://decembersoft.com/posts/say-goodbye-to-relative-paths-in-typescript-imports/*/
+    "baseUrl": "./ClientApp",
+    "paths": {
+      /*"@/*": [ "" ],*/
+      "store/*": [ "store/*" ],
+      "views/*": [ "views/*" ],
+      "models/*": [ "models/*" ]
+    }
+  },
+  "exclude": [
+      "bin",
+      "node_modules"
+  ]
+}

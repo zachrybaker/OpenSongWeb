@@ -1,0 +1,3 @@
+table .badge:not(:first-child) {
+    margin-left:3px;
+}

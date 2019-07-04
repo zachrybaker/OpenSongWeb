@@ -1,0 +1,17 @@
+﻿<template>
+    <div>
+        <song-results-header v-bind="{songs:songs, searchParameters:searchParameters}"></song-results-header>
+        
+        <form v-if="songs && songs.length" class="table-filter float-lg-right" v-on:submit.prevent>
+            <label for="table-filter"><span v-if="clientFilter.length">
+                        Filtered to {{ filteredSongs.length }} matching {{ filteredSongs.length | pluralize('song','songs') }}
+                    </span>
+                    <span v-else>Filter these for:</span></label>
+            <input type="search" placeholder="Filter..." v-on:keyup="filterAtClient" v-on:input="filterAtClient" v-model="filterInput" /> 
+            
+        </form>
+        <song-results-table v-bind="{songs:filteredSongs}"></song-results-table>
+    </div>
+</template>
+
+<script src="./songs.ts"></script>
