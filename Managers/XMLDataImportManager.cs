@@ -266,7 +266,7 @@ namespace OpenSongWeb.Managers
                     }
 
                     OSSong otherSong = await _osSongRepo.GetByFilename(song.Filename);
-                    IEnumerable<OSSong> songsByName = await _osSongRepo.All(new SongFilterParameter { title = song.Title });
+                    IEnumerable<OSSong> songsByName = await _osSongRepo.All(new SongFilterParameter { Title = song.Title });
 
                     if (otherSong != null)
                     {

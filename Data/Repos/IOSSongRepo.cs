@@ -24,7 +24,7 @@ namespace OpenSongWeb.Data.Repos
         /// </summary>
         /// <param name="queryParameter">search criteria</param>
         /// <returns>A list of songs, or an ErrorInfo</returns>
-        Task<List<OSSong>> All(SongFilterParameter queryParameter);
+        Task<IEnumerable<OSSong>> All(SongFilterParameter queryParameter);
 
         /// <summary>
         /// Get an OpenSong Song by Id
@@ -45,9 +45,9 @@ namespace OpenSongWeb.Data.Repos
         /// </summary>
         /// <param name="filename">The filename the song came in as (usually matches the title, with special characters removed</param>
         /// <returns>true if already in db.</returns>
-        bool Exists(string filename);
+        Task<bool> Exists(string filename);
 
-        bool Exists(int id);
+        Task<bool> Exists(int id);
 
         /// <summary>
         /// Create a new OpenSong Song, returns the newly created OpenSong Song

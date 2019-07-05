@@ -20,13 +20,16 @@ export default class SongResultsHeader extends Vue {
     @Prop({ default: null })
     private searchParameters!: SongModel.SongSearchParameters;
 
-    isAll() {
+    get isAll() {
         return this.isType(SongModel.SongSearchType.All);
     }
-    isTags() {
+    get isTags() {
         return this.isType(SongModel.SongSearchType.Tags);
     }
     isType(type: SongModel.SongSearchType) : boolean {
         return this.searchParameters && this.searchParameters.type == type;
-}
+    }
+    get tag() {
+        return this.$route.params.tag;
+    }
 }

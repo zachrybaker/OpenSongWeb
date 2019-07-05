@@ -5,14 +5,14 @@
     padding-left: 0;
     margin-bottom: 5px 0;
 }
-    .song-customizations > * {
-        display: inline-block;
-        position: relative;
-        list-style: none;
-        border-left: 1px solid;
-        padding: 0px 10px;
-    }
-    .song-customizations > *:first-child {
-        border-left: 0px none;
-        padding-left: initial;
-    }
+.song-customizations > * {
+    display: inline-block;
+    position: relative;
+    list-style: none;
+    border-left: 1px solid;
+    padding: 0px 10px;
+}
+.song-customizations > *:first-child {
+    border-left: 0px none;
+    padding-left: initial;
+}

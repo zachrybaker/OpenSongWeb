@@ -31,6 +31,6 @@ namespace OpenSongWeb.Managers
         /// <returns>A list of songs, or an ErrorInfo</returns>
         Task<Either<List<SongBrief>, ErrorInfo>> All(SongFilterParameter queryParameter);
 
-        bool Exists(int id);
+        Task<bool> Exists(int id);
     }
 }

@@ -3,12 +3,15 @@ import { Component,Prop, Model } from 'vue-property-decorator';
 
 import songModule from '../../store/modules/songModule'
 import { SongModel } from '../../models/songModels';
-
+import Filters from "../../scripts/Filters"
 
 @Component({
     filters: {
         longStanza(value: any): string {
             return SongModel.Song.stanza_makeLongVersion(value ? value.toString().trim() : '');
+        },
+        spacify(value: any): string {
+            return Filters.spacify(value);
         }
     },
     components: {
@@ -44,6 +47,6 @@ export default class SongLyricsAndChords extends Vue {
     }
 
     makeSubstringLyricsLine(line: string) {
-        return line ? line.substring(1) : "";
+        return line ? Filters.spacify(line.substring(1)) : "";
     }
 }

@@ -4,7 +4,8 @@
         <div class="container">
             <a href="/" class="navbar-brand  mb-0 h1">OpenSongWeb</a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+                    aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -16,12 +17,20 @@
                         </router-link>
                     </li>
                 </ul>
-                <!-- TODO: move out to separate component -->
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search Songs..." aria-label="Search">
-                    <button class="btn btn-outline-light btn-sm" type="submit"><span class="glyphicon glyphicon-search"></span> Search</button>
-                </form>
 
+                <!-- the build tool doesn't pick up vue files.  NavSearch.vue replaces this once we fix that.-->
+                <form class="form-inline my-2 my-lg-0 needs-validation" v-on:submit.stop.prevent="searchServer" novalidate v-bind:class="{'was-validated': (searched && searchInput.length < minSearchLen)}">
+
+                        <span class="invalid-feedback" for="main-search" v-bind:class="{'d-inline': (searched && searchInput.length < minSearchLen)}">
+                            Please search with at least {{ minSearchLen }} characters.
+                        </span>
+                        <input name="main-search" class="col-5 form-control mr-sm-2 form-control-sm" type="text" placeholder="Search Songs..." aria-label="Search" v-model="searchInput" v-on:blur="searched = false" v-on:input="checkReset"
+                               v-bind:min="minSearchLen" v-bind:minlength="minSearchLen" required v-bind:class="{':invalid': (searchInput.length < minSearchLen)}" />
+                        
+                        <button class="btn btn-outline-light btn-sm" type="submit" :click="searchServer">
+                            <span class="glyphicon glyphicon-search"></span> Search
+                        </button>
+                </form>
 
                 <span v-if="authenticationState.isAuthenticated" class="navbar-text mr-2">
                     Welcome {{ profile.name }}

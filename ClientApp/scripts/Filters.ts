@@ -1,4 +1,5 @@
 ﻿import moment from 'moment';
+import jQuery from 'jquery'
 
 import { SongModel } from "../models/songModels"
 
@@ -30,6 +31,10 @@ export default class Filters {
         }
 
         return pluralWord ? pluralWord : singleWord + 's';
+    }
+
+    static spacify(text: string): any {
+        return jQuery('<textarea>').html(text.replace(new RegExp(/ /g, "gi"), '&nbsp;')).text();
     }
 }
 

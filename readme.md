@@ -1,12 +1,12 @@
 
 # OpenSong Web
 OpenSongWeb aims to be a resource for worship teams to prepare for leading worship and present the set.  It uses the OpenSong format.
-It also is a rewrite of a full-featured system created in spare time in 2012 found [here](http://wworship.242sanmarcos.org/).
+It also is a rewrite of a full-featured system created in spare time in 2012 found [here](http://wworship.24s2sanmarcos.org/).
 
-### Installation
-
+### Building
     >     npm install
     >     dotnet restore
+	
 
 This will become a pre-packaged container at some point. 
 

@@ -2,18 +2,18 @@
 
     <p class="fixedWidthFont text-monospace">
         <template v-for="(line, index) in lines">
-            <div v-if="isChordLine(line)" class="chords">{{ makeSubstringLyricsLine(line) }}</div>
-            <tempate v-else-if="isStanzaLine(line)">
+            <div v-if="isChordLine(line)" class="chords">{{ makeSubstringLyricsLine(line) | spacify }}</div>
+            <template v-else-if="isStanzaLine(line)">
                 <br v-if="index > 0" />
                 <div class="heading-line">
                 
                     {{ line | longStanza }}
                 </div>
-            </tempate>
+            </template>
             
-            <div v-else-if="isCommentLine(line)" class="comments text-secondary">{{ makeSubstringLyricsLine(line) }}</div>
+            <div v-else-if="isCommentLine(line)" class="comments text-secondary">{{ makeSubstringLyricsLine(line) | spacify }}</div>
             
-            <div v-else class="lyrics text-secondary">{{ makeSubstringLyricsLine(line) }}</div>
+            <div v-else class="lyrics text-secondary" v-html="$options.filters.spacify(line.substring(1))"></div>
             
         </template>
     </p>

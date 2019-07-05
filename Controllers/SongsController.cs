@@ -33,11 +33,13 @@ namespace OpenSongWeb.Controllers
             if (songSearchParameters != null && !string.IsNullOrEmpty(songSearchParameters.Text))
             {
                 songFilterParameter = new SongFilterParameter
-                       {
-                           author = songSearchParameters.type == SongSearchType.All || songSearchParameters.type == SongSearchType.Author ? songSearchParameters.Text : null,
-                           lyrics = songSearchParameters.type == SongSearchType.All || songSearchParameters.type == SongSearchType.Lyrics ? songSearchParameters.Text : null,
-                           title = songSearchParameters.type == SongSearchType.All || songSearchParameters.type == SongSearchType.Title ? songSearchParameters.Text : null,
-                       };
+                {
+                    Author = songSearchParameters.type == SongSearchType.All || songSearchParameters.type == SongSearchType.Author ? songSearchParameters.Text : null,
+                    Lyrics = songSearchParameters.type == SongSearchType.All || songSearchParameters.type == SongSearchType.Lyrics ? songSearchParameters.Text : null,
+                    Title = songSearchParameters.type == SongSearchType.All || songSearchParameters.type == SongSearchType.Title ? songSearchParameters.Text : null,
+                    Themes = songSearchParameters.type == SongSearchType.All || songSearchParameters.type == SongSearchType.Tags ? songSearchParameters.Text : null,
+                    SearchCriteriaBuildType = SearchCriteriaBuildType.Any
+                };
             }
 
             var result = await _songManager.All(songFilterParameter);
@@ -184,9 +186,9 @@ namespace OpenSongWeb.Controllers
             //return RedirectToAction(nameof(Index));
         }
 
-        private bool OSSongExists(int id)
+        private async Task<bool> OSSongExists(int id)
         {
-            return _songManager.Exists(id);
+            return await _songManager.Exists(id);
         }
     }
 }

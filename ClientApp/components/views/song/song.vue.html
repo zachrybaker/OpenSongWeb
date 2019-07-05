@@ -1,12 +1,12 @@
 ﻿<template>
     <div>
         <template v-if="song">
-            <h1>
+            <h2>
                 {{ title }}
                 <span class="transposed" v-if="transpose != 0">
                     transposed {{ song.key }} -> {{ song.transposedKey }}
                 </span>
-            </h1>
+            </h2>
 
             <p class="author text-muted">Author: {{ song.author }}</p>
             <ul class="song-customizations list-unstyled">

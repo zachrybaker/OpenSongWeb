@@ -39,7 +39,8 @@ namespace OpenSongWeb
             services.AddMvc();
             // services.AddCors();
 
-            // enable caching in the repo layer (songs in memory)
+            // Enables caching in the repo layer, keeping songs in memory for faster operation.  
+            // Can be disabled by "CacheSongs" in the app configuration.
             services.AddMemoryCache();
 
             // Scoped = don't make multiple instantiations per [request] life cycle.

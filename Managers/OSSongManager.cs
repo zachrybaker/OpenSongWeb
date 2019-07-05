@@ -30,9 +30,9 @@ namespace OpenSongWeb.Managers
         }
 
 
-        public bool Exists(int id)
+        public async Task<bool> Exists(int id)
         {
-            return _OSSongRepo.Exists(id);
+            return await _OSSongRepo.Exists(id);
         }
         public async Task<Either<PaginatedList<SongBrief>, ErrorInfo>> Page(SongFilterParameter queryParameter, PagingParameter pagingParameter)
         {

@@ -46,7 +46,7 @@
                     </td>
                     <td>
                         <template v-for="theme in song.themes">
-                            <router-link :to="'/Songs/tagged-with?tag=' + theme" class="badge badge-secondary">{{ theme }}</router-link>
+                            <router-link :to="'/songs/tagged-with/' + encodeURIComponent(theme) + '/'" class="badge badge-secondary">{{ theme }}</router-link>
                         </template>
                     </td>
                     <td>

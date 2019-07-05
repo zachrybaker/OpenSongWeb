@@ -21,7 +21,8 @@ namespace OpenSongWeb.Data
         All,
         Title,
         Author,
-        Lyrics
+        Lyrics,
+        Tags
     }
 
     /// <summary>
@@ -33,16 +34,29 @@ namespace OpenSongWeb.Data
         public SongSearchType type { get; set; }
     }
 
+    /// <summary>
+    /// Allow for queries to the database to match any (or) or all (and)
+    /// </summary>
+    public enum SearchCriteriaBuildType
+    {
+        Any,
+        All,
+        Exact //(And, all string match exactly).  seems too tight.
+    }
+
 
     /// <summary>
     /// Query/filter properties for songs.
     /// </summary>
     public class SongFilterParameter
     {
-        public string title { get; set; }
-        public string author { get; set; }
+        public string Title { get; set; }
+        public string Author { get; set; }
+        public string Lyrics { get; set; }
 
-        public string lyrics { get; set; }
+        public string Themes { get; set; }
+
+        public SearchCriteriaBuildType SearchCriteriaBuildType { get; set; }
     }
 
 }

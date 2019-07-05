@@ -11,11 +11,11 @@ import 'bootstrap/dist/css/bootstrap.css'
 let songsView = require('./components/views/songs/songs.vue.html');
 
 const routes = [
-    { path: '/', component: songsView },
-    { path: '/songs/all', component: songsView },
-    { path: '/songs/tagged-with', component: songsView, name: "SongsTaggedWith" },
-
-    { path: '/songs/view/:id/:title', component: require('./components/views/song/song.vue.html') }
+    { path: '/',                        component: songsView, name: "songs-default" },
+    { path: '/songs/all/',              component: songsView, name: "songs-all" },
+    { path: '/songs/tagged-with/:tag/', component: songsView, name: "songs-tagged-with", meta: { type: 'tags' } },
+    { path: '/songs/search/:text/',     component: songsView, name: "songs-search",      meta: { type: 'search' } },
+    { path: '/songs/view/:id/:title',   component: require('./components/views/song/song.vue.html') }
 ];
 
 const app = new Vue({
