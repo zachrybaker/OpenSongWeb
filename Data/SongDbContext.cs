@@ -85,5 +85,7 @@ namespace OpenSongWeb.Data
         public DbSet<SetEntry> SetEntries { get; set; }
 
         public DbQuery<AppUserBrief> AppUserBriefs { get; set; }
+
+        public DbSet<AppConfiguration> AppConfigurations { get; set; }
     }
 }
