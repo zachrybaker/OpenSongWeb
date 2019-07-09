@@ -4,8 +4,9 @@ OpenSongWeb aims to be a resource for worship teams to prepare for leading worsh
 It also is a rewrite of a full-featured system created in spare time in 2012 found [here](http://wworship.24s2sanmarcos.org/).
 
 ### Building
+	>     npm install -g webpack-cli
     >     npm install
-    >     dotnet restore
+    build or run from visual studio.
 	
 
 This will become a pre-packaged container at some point. 
@@ -32,18 +33,19 @@ There's lots of plans and ideas.  Will vet needs with worship leaders and adjust
 
 ### Finished Features
 - Viewing songs 
--- "all" songs
+-- "all" 
+-- by tags
 -- individual song.
 - Bulk import (OpenSong Format)
+- song searching
+-- server side
+-- client filtering
 
 ### In-progress
-- Viewing songs
--- by tags
 
 ### Planned Features 
 ------ to be ported ------
-1. Song searching
-2. bulk upload
+2. User authentication and mgmt
 3. Set mgmt
 4. presentation
 5. capo

@@ -80,12 +80,14 @@ namespace OpenSongWeb
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-
-                routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
+                    name: "spa-route",
+                    template: "{controller}/{*anything=Index}",
+                    defaults: new { controller = "Songs", action = "Index" });
+                
+                routes.MapRoute(
+                   name: "app-fallback",
+                   template: "{*anything}/",
+                   defaults: new { controller = "Songs", action = "Index" });
             });
 
             // coming soon..app.UseAuthentication();
