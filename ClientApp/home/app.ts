@@ -8,7 +8,6 @@ import router from './router';
 
 Vue.use(BootstrapVue);
 
-console.log('newing app');
 const app = new Vue({
     el: '#app-root',
     router: router,

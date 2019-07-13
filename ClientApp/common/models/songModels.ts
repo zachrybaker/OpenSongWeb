@@ -1,4 +1,4 @@
-import { UserModel } from './userModels';
+import { UserModels } from './userModels';
 
 export module SongModel {
     export enum EmbedLinkType {
@@ -42,7 +42,7 @@ export module SongModel {
         createdDateUTC?: Date;
         lastUpdatedDateUTC?: Date;
 
-        CreatedBy?: UserModel.User;
+        CreatedBy?: UserModels.User;
     }
 
     /* Represents a fully-fleshed out song as it comes from the server. */
@@ -83,7 +83,7 @@ export module SongModel {
         createdDateUTC?: Date;
         lastUpdatedDateUTC?: Date;
 
-        CreatedBy?: UserModel.User;
+        CreatedBy?: UserModels.User;
 
         // From Detail
         ////////////////////////

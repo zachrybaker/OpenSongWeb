@@ -1,15 +1,11 @@
-﻿import { getModule, Module, VuexModule, Mutation } from 'vuex-module-decorators'
-import store from '../store'
-
-export interface AuthState {
-    isAuthenticated: boolean
-}
+﻿import { getModule, Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
+import store from '../store';
+import { UserModels } from '@/common/models/userModels';
 
 export interface Copyright {
     year: number
     by: string
 }
-
 
 @Module({
     namespaced: true,
@@ -22,10 +18,12 @@ class AppModule extends VuexModule {
         by: 'Zach Baker',
         year: 2019
     }
-    authState: AuthState = {
-        isAuthenticated: false
+    authState: UserModels.AuthState = {
+        isAuthenticated: false,
+        isEmailVerified: null,
+        isAppUser: null
     }
-    isLoading: boolean = true;
+    isLoading: boolean = false;
 
 
     // technically should be an action...that calls a mutation
@@ -35,12 +33,18 @@ class AppModule extends VuexModule {
     }
     
     @Mutation
-    setAuthentication(authState: AuthState) {
+    _setAuthenticationState(authState: UserModels.AuthState) {
         this.authState = authState;
+        console.log('setting authentication state', authState);
     }
 
-    get authenticationState(): AuthState {
+    get authenticationState(): UserModels.AuthState {
         return this.authState;
+    }
+
+    @Action
+    updateAuthenticationState(authState: UserModels.AuthState) {
+        this.context.commit('_setAuthenticationState', authState);
     }
 }
 export default getModule(AppModule);

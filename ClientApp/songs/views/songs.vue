@@ -27,8 +27,8 @@ import VueRouter, { NavigationGuard, Route } from 'vue-router';
 
 @Component ({
     components: {
-        SongResultsTable: require("../SongResultsTable.vue").default,
-        SongResultsHeader: require("../SongResultsHeader.vue").default
+        SongResultsTable: require("../components/SongResultsTable.vue").default,
+        SongResultsHeader: require("../components/SongResultsHeader.vue").default
     },
     filters: {
         pluralize: Filter.pluralize

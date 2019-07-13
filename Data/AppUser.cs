@@ -11,7 +11,7 @@ namespace OpenSongWeb.Data
     /// Other customization options here:
     // https://docs.microsoft.com/en-us/aspnet/core/security/authentication/customize-identity-model?view=aspnetcore-3.0
     /// </summary>
-    public class AppUser : IdentityUser
+    public partial class AppUser : IdentityUser
     {
         [StringLength(100, ErrorMessage = "The {0} must be between {1} and {2} characters long.", MinimumLength = 3)]
         [PersonalData]

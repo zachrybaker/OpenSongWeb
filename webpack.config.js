@@ -36,9 +36,10 @@ fs.readdirSync(applicationBasePath).forEach(function (name) {
 
 })
 
-// Add main site.scss file
+// Stuff that needs to always be there, explicitly, rather than by dependency resolution.
 appEntryFiles["vendor"] = [
-    path.resolve(__dirname, "ClientApp/common/design/site.scss")
+    path.resolve(__dirname, "ClientApp/common/design/site.scss"),
+    path.resolve(__dirname, "ClientAppConfig.ts")
 ]
 
 module.exports = function (env, argv) {

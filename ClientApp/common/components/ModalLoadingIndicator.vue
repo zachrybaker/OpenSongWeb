@@ -10,7 +10,7 @@
 
 </template>
 <style>
-    /* moved styles to the loading page so that it starts with the loader.*/
+    /* moved styles to the loading page so that it starts with the styles immediately .*/
 </style>
 
 <script lang="ts">

@@ -5,7 +5,8 @@
         <div class="container body-content mt-4">
             <main role="main" class="container mt-4">
                 <transition>
-                    <modal-loading-indicator v-show="isLoading || isNavigating"></modal-loading-indicator>
+                    <modal-loading-indicator v-show="isLoading || isNavigating" 
+                        :class="{'isLoading' : isLoading, 'isNavigating': isNavigating}"></modal-loading-indicator>
                 </transition>
                     <transition>
                         <router-view></router-view>
@@ -33,25 +34,14 @@ import VueRouter, { NavigationGuard, Route } from 'vue-router';
     }
 })
 export default class AppComponent extends Vue {
-    isNavigating: boolean = false;
+    get isNavigating(): boolean {
+        return Vue.prototype.$isNavigating || false;
+    }
     get copyright(): Copyright {
         return appState.copyright;
     }
     get isLoading(): boolean {
         return appState.isLoading;
     }  
-    mounted() {
-
-        // set up the router, globally, to modify the isNavigating property
-        this.$router.afterEach((any) => {
-            this.isNavigating = false;
-        });
-        this.$router.beforeEach((to: Route, from: Route, next: any) => {
-            this.isNavigating = true;
-            next();
-           
-        });
-    }
-
 }
 </script>

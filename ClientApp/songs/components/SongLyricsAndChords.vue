@@ -40,7 +40,7 @@ import Filters from "@/common/helpers/ui/Filters"
     },
     props: {
         song: {
-            type: SongModel.Song,
+            type: (SongModel.Song | null),
             default: null
         },
         transpose: Number

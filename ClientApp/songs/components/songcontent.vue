@@ -24,7 +24,7 @@ import { SongModel } from '@/common/models/songModels';
     },
     props: {
         song: {
-            type: SongModel.Song,
+            type: (SongModel.Song | null),
             default: null
         },
         transpose: Number

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace OpenSongWeb.Data.Repos
@@ -11,23 +12,16 @@ namespace OpenSongWeb.Data.Repos
     /// </summary>
     public class DBInitializations
     {
-        public static void Initialize(SongDbContext context, bool performMigrations = false, bool performConfiguration = true)
+        public static async Task Initialize(SongDbContext context, CancellationToken cancellationToken, bool performMigrations = false, bool performConfiguration = true)
         {
             if (performMigrations)
             {
-                context.Database.Migrate();
+                await context.Database.MigrateAsync(cancellationToken);
             }
 
             if (performConfiguration)
             {
-                if(!context.AppConfigurations.Any(c => c.Name == ConfigKeys.OpenIddict.ClientId))
-                {
-                    context.AppConfigurations.Add(new AppConfiguration { Name = ConfigKeys.OpenIddict.ClientId, Value = Guid.NewGuid().ToString("N") });
-                    context.AppConfigurations.Add(new AppConfiguration { Name = ConfigKeys.OpenIddict.ClientSecret, Value = Helpers.RandomGenerator.GenerateString(128) }); ;
-                    context.SaveChanges();
-
-                }
-
+                
             }
         }
     }

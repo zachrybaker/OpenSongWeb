@@ -13,3 +13,12 @@ export module CommonModels {
         items: Array<any>;
     }
 }
+
+export module ErrorModels {
+
+    export interface AuthError {
+        code: string;
+        message: string;
+    }
+
+}

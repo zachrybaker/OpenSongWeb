@@ -1,10 +1,32 @@
 
-export module UserModel {
+export module UserModels {
 
-    /// TODO: something that doesn't expose the key?  Probably just need the name in the consumer?
+    /// TODO: replace!
     export interface User {
         id: string;
         name: string;
 
+    }
+
+    export interface UserProfile {
+        displayName: string | null;
+        email: string | null;
+        username: string | null;
+        photoURL: string | null;
+        uid: string | null;
+
+        /*
+      type AdditionalUserInfo = {
+        isNewUser: boolean;
+        profile: Object | null;
+        providerId: string;
+        username?: string | null;
+      };*/
+    }
+
+    export interface AuthState {
+        isAuthenticated: boolean,
+        isEmailVerified: boolean | null,
+        isAppUser: boolean | null
     }
 }

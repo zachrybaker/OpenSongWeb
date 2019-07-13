@@ -26,31 +26,31 @@
 </style>
 
 <script lang="ts">
-import Vue from 'vue';
-import BootstrapVue, { BvEvent }  from 'bootstrap-vue';
-import { Component } from 'vue-property-decorator';
-Vue.use(BootstrapVue);
+    import Vue from 'vue';
+    import BootstrapVue, { BvEvent }  from 'bootstrap-vue';
+    import { Component } from 'vue-property-decorator';
+    Vue.use(BootstrapVue);
 
 
-@Component
-export default class NavSearch extends Vue {
-    searchInput: string = '';
-    searched: boolean = false;
-    readonly minSearchLen: number = 3;
+    @Component
+    export default class NavSearch extends Vue {
+        searchInput: string = '';
+        searched: boolean = false;
+        readonly minSearchLen: number = 3;
 
-    searchIsValid(): string | null {
-        if (!this.searched) {
-            return null;
+        get searchIsValid(): string | null {
+            if (!this.searched) {
+                return null;
+            }
+
+            return this.searchInput.length >= this.minSearchLen ? '' : 'invalid'
         }
 
-        return this.searchInput.length >= this.minSearchLen ? '' : 'invalid'
-    }
-
-    searchServer(): void {
-        this.searched = true;
-        if ( this.searchInput.length >= this.minSearchLen) {
-            this.$router.push({ name: 'songs-search', params: { text: this.searchInput } });
+        searchServer(): void {
+            this.searched = true;
+            if ( this.searchInput.length >= this.minSearchLen) {
+                this.$router.push({ name: 'songs-search', params: { text: this.searchInput } });
+            }
         }
     }
-}
 </script>

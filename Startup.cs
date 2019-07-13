@@ -13,32 +13,45 @@ using OpenSongWeb.Data.Repos;
 using OpenSongWeb.Managers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Threading;
+using AspNetCore.Firebase.Authentication.Extensions;
 
 namespace OpenSongWeb
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
+            CurrentEnvironment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment CurrentEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<Data.SongDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("WorshipDB")));
+            {
+                // Configure the context to use an in-memory store (for testing)
+                //options.UseInMemoryDatabase(nameof(SongDbContext));
+                options.UseSqlServer(Configuration.GetConnectionString("WorshipDB"));
 
-            services.AddDefaultIdentity<AppUser>()
-                //.AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<Data.SongDbContext>();
+            });
+
+            services.AddFirebaseAuthentication(
+                Configuration.GetValue<string>("JWTAuthIssuer"),
+                Configuration.GetValue<string>("JWTAuthAudience"));
 
             services.AddMvc();
-            // services.AddCors();
 
+            /*services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<Data.SongDbContext>()
+                .AddDefaultTokenProviders();*/
+                       
             // Enables caching in the repo layer, keeping songs in memory for faster operation.  
             // Can be disabled by "CacheSongs" in the app configuration.
             services.AddMemoryCache();
@@ -50,7 +63,6 @@ namespace OpenSongWeb
 
             // Transient = doesn't hold any data between uses.
             services.AddTransient<IXMLDataImportManager, XMLDataImportManager>();
-
             services.AddTransient<IOSSongManager, OSSongManager>();
 
             // Singleton = holds data that should be available all the time, in one spot.
@@ -61,6 +73,9 @@ namespace OpenSongWeb
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // app.UseAuthorization(); // a 3.0 method?
+            app.UseAuthentication();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -71,37 +86,43 @@ namespace OpenSongWeb
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Songs/Error");
             }
 
             // app.UseDefaultFiles();  
             app.UseStaticFiles();
-
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "spa-route",
                     template: "{controller}/{*anything=Index}",
                     defaults: new { controller = "Songs", action = "Index" });
-                
+
                 routes.MapRoute(
                    name: "app-fallback",
                    template: "{*anything}/",
                    defaults: new { controller = "Songs", action = "Index" });
             });
 
-            // coming soon..app.UseAuthentication();
+            InitializeAsync(app.ApplicationServices, CancellationToken.None).GetAwaiter().GetResult();
+        }
 
-            // app.UseAuthorization(); // a 3.0 method?
+        private async Task InitializeAsync(IServiceProvider services, CancellationToken cancellationToken)
+        {
 
-            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            using (var scope = services.GetService<IServiceScopeFactory>().CreateScope())
             {
-                // On boot we always want to try to import data.
-                // We don't really care to do it more than once while running though.
-                var xmlDataImportManager = scope.ServiceProvider.GetRequiredService<IXMLDataImportManager>();
-                xmlDataImportManager.PerformImport();
-            }
+                var dbContext = scope.ServiceProvider.GetRequiredService<SongDbContext>();
+                await DBInitializations.Initialize(dbContext,
+                    cancellationToken,
+                    Configuration.GetValue<bool>("RunMigrationsOnBoot"),
+                    Configuration.GetValue<bool>("PerformDBConfigurations"));
 
+                // On boot we always want to try to import data.
+                await scope.ServiceProvider.GetRequiredService<IXMLDataImportManager>().PerformImport();
+
+            }
         }
     }
 }

@@ -26,5 +26,13 @@ namespace OpenSongWeb.Data.Helpers
             }
             return result.ToString();
         }
+
+        public static string GenerateHMACSHA256SecretKey()
+        {
+            using (HMACSHA256 hmac = new HMACSHA256())
+            {
+                return Convert.ToBase64String(hmac.Key);
+            }
+        }
     }
 }

@@ -34,7 +34,7 @@ import songModule from '@/common/store/modules/songModule'
 
 @Component ({
     components: {
-        SongContent: require('../SongContent.vue').default
+        SongContent: require('../components/SongContent.vue').default
     },
     props: {}
 })
