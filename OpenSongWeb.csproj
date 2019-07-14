@@ -38,7 +38,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientAppConfig.ts" />
     <TypeScriptCompile Include="ClientApp\common\types\lib\imports.d.ts" />
   </ItemGroup>
 

@@ -12,25 +12,23 @@
 </template>
 
 <script lang="ts">
-    import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
+    import Vue from "vue";
+    import { Component } from "vue-property-decorator";
+    import { SongModel } from "@/common/models/songModels";
 
-import songModule from "@/common/store/modules/songModule"
-import { SongModel } from '@/common/models/songModels';
-
-@Component({
-    components: {
-        SongLyricsAndChords: require('./SongLyricsAndChords.vue').default
-    },
-    props: {
-        song: {
-            type: (SongModel.Song | null),
-            default: null
+    @Component({
+        components: {
+            SongLyricsAndChords: require("./SongLyricsAndChords.vue").default
         },
-        transpose: Number
-    }
-})
-export default class SongContent extends Vue {
+        props: {
+            song: {
+                type: (SongModel.Song | null),
+                default: null
+            },
+            transpose: Number
+        }
+    })
+    export default class SongContent extends Vue {
     
-}
+    }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div id='app-root' class="<!--container-fluid-->">
+    <div id="app-root" class="<!--container-fluid-->">
         <nav-menu-component />
 
         <div class="container body-content mt-4">
@@ -22,26 +22,26 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { Component, Watch } from 'vue-property-decorator';
-import appState, { Copyright } from '../store/modules/appModule';
-import VueRouter, { NavigationGuard, Route } from 'vue-router';
-
-@Component({
-    components: {
-        NavMenuComponent: require('./NavMenu.vue').default,
-        ModalLoadingIndicator: require('./ModalLoadingIndicator.vue').default
+    import Vue from "vue";
+    import { Component, Watch } from "vue-property-decorator";
+    import appState, { ICopyright } from "../store/modules/appModule";
+    
+    @Component({
+        components: {
+            NavMenuComponent: require("./NavMenu.vue").default,
+            ModalLoadingIndicator: require("./ModalLoadingIndicator.vue").default
+        }
+    })
+    export default class AppComponent extends Vue {
+        get isNavigating(): boolean {
+            return Vue.prototype.$isNavigating || false;
+        }
+        get copyright(): ICopyright {
+            return appState.copyright;
+        }
+        get isLoading(): boolean {
+            return appState.isLoading;
+        }  
     }
-})
-export default class AppComponent extends Vue {
-    get isNavigating(): boolean {
-        return Vue.prototype.$isNavigating || false;
-    }
-    get copyright(): Copyright {
-        return appState.copyright;
-    }
-    get isLoading(): boolean {
-        return appState.isLoading;
-    }  
-}
 </script>
+

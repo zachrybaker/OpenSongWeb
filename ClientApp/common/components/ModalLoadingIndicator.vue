@@ -14,12 +14,10 @@
 </style>
 
 <script lang="ts">
-    import Vue from 'vue';
-    import { Component } from 'vue-property-decorator';
-    import appState from '@/common/store/modules/appModule'
+    import Vue from "vue";
+    import { Component } from "vue-property-decorator";
 
     @Component
     export default class ModalLoadingIndicator extends Vue {
-    // ... options ...
     }
 </script>

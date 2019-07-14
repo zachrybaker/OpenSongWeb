@@ -8,30 +8,34 @@
 </template>
 
 <script lang="ts">
-    
-    import { auth } from 'firebase';
-    import Vue from 'vue';
+    import Vue from "vue";
 
-    import { Component, Prop, Model } from 'vue-property-decorator';
-    import userModule from '@/common/store/modules/userModule';
-    import { ErrorModels } from '@/common/models/commonModels';
+    import { Component, Prop, Model } from "vue-property-decorator";
+    import userModule from "@/common/store/modules/userModule";
+    import { ErrorModels } from "@/common/models/commonModels";
+    import { UserModels } from "@/common/models/userModels";
 
     @Component({
-        name: 'login'
+        name: "login"
     })
     export default class Login extends Vue {
         // TODO: Make this a dressed-up view, possibly even a modal.
-        email: string = '';
-        password: string = '';
+        email: string = "zachgotnosauce@gmail.com";
+        password: string = "Gopher@1";
         async login(): Promise<void>
         {
-            let err : (ErrorModels.AuthError | null) = await userModule.loginByEmailPassword(this.email, this.password);
+            const emailPassword: UserModels.EmailPassword = {
+                email: this.email,
+                password: this.password
+            };
+            let err: (ErrorModels.AuthError | null) =
+                await userModule.loginByEmailPassword(emailPassword);
 
             if (err) {
-                if (err.code === 'auth/wrong-password') {
-                    alert('Wrong password.');
+                if (err.code === "auth/wrong-password") {
+                    alert("Wrong password.");
                 } else {
-                    alert('Login failed:\r\n' + err.message);
+                    alert("Login failed:\r\n" + err.message);
                 }
             }
             else {
@@ -43,6 +47,4 @@
     }
 </script>
 <style scoped>
-   
-
 </style>

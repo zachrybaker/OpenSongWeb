@@ -8,7 +8,7 @@ export module UserModels {
 
     }
 
-    export interface UserProfile {
+    export interface IUserProfile {
         displayName: string | null;
         email: string | null;
         username: string | null;
@@ -28,5 +28,10 @@ export module UserModels {
         isAuthenticated: boolean,
         isEmailVerified: boolean | null,
         isAppUser: boolean | null
+    }
+
+    export interface EmailPassword {
+        email: string;
+        password: string;
     }
 }

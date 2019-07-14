@@ -1,10 +1,10 @@
-﻿import axios, { AxiosInstance } from 'axios';
-import * as jQuery from 'jquery';
+﻿import axios, { AxiosInstance } from "axios";
+import * as jQuery from "jquery";
 
-import { SongModel } from "@/common/models/songModels"
-import serverAPI from '../api';
+import { SongModel } from "@/common/models/songModels";
+import serverAPI from "../api";
 
-export default class songService {
+export default class SongService {
     protected readonly appApi: AxiosInstance;
 
     constructor(appApi: AxiosInstance) {
@@ -12,7 +12,7 @@ export default class songService {
     }
 
     public boot(): void {
-        console.log('booted song service');
+        console.log("booted song service");
     }
    
     async getSong(id: string) : Promise<SongModel.Song>
@@ -23,7 +23,7 @@ export default class songService {
 
     async searchSongs(searchParameters?: SongModel.SongSearchParameters): Promise<SongModel.SongBrief[]>
     {
-        const resp = await this.appApi.get('Songs/All' + (searchParameters ? '?' + jQuery.param(searchParameters) : ''));
+        const resp = await this.appApi.get("Songs/All" + (searchParameters ? "?" + jQuery.param(searchParameters) : ""));
         return resp.data as SongModel.SongBrief[];
     }
 

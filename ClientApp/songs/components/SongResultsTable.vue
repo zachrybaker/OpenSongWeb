@@ -66,29 +66,28 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import {  Component, Prop, Model } from 'vue-property-decorator';
-
-import songModule from '@/common/store/modules/songModule'
-import { SongModel } from '@/common/models/songModels';
-import Filter  from "@/common/helpers/ui/Filters";
-
-@Component({
-    filters: {
-        shortDate(value: any): string {
-            return Filter.shortDate(value);
-        }
-    },
-    components: {}
-})
-export default class SongResultsTable extends Vue {
-    @Prop({ /* the crazy way to define an array prop - the @Component.props can't  handle arrays. */
-        default: () => {
-            return []
-        }
-    }) private songs!: SongModel.SongBrief[];
+    import Vue from "vue";
+    import {  Component, Prop, Model } from "vue-property-decorator";
     
-}
+    import { SongModel } from "@/common/models/songModels";
+    import Filter  from "@/common/helpers/ui/Filters";
+
+    @Component({
+        filters: {
+            shortDate(value: any): string {
+                return Filter.shortDate(value);
+            }
+        },
+        components: {}
+    })
+    export default class SongResultsTable extends Vue {
+        @Prop({ /* the crazy way to define an array prop - the @Component.props can't  handle arrays. */
+            default: () => {
+                return []
+            }
+        }) private songs!: SongModel.SongBrief[];
+    
+    }
 </script>
 
 <style>

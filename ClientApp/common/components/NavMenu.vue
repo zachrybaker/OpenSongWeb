@@ -21,7 +21,7 @@
                 <nav-search></nav-search>
 
                 <span v-if="authenticationState.isAuthenticated" class="navbar-text mr-2 ml-2">
-                    Welcome {{ profile ? profile.displayName : '??'}}
+                    Welcome {{ profile ? profile.displayName : "??"}}
                 </span>
                 <span v-else>
                     <router-link to="/login" :exact="true" class="nav-link" active-class="active">
@@ -49,32 +49,32 @@
 </style>
 
 <script lang="ts">
-    import Vue from 'vue';
-    import { Component } from 'vue-property-decorator';
-    import { UserModels } from '@/common/models/userModels';
+    import Vue from "vue";
+    import { Component } from "vue-property-decorator";
+    import { UserModels } from "@/common/models/userModels";
 
-    import appState from '@/common/store/modules/appModule';
-    import userModule from '@/common/store/modules/userModule';
+    import appState from "@/common/store/modules/appModule";
+    import userModule from "@/common/store/modules/userModule";
     
-@Component({
-    components: {
-        NavSearch: require('./NavSearch.vue').default
-    }
-})
-export default class NavMenu extends Vue {
+    @Component({
+        components: {
+            NavSearch: require("./NavSearch.vue").default
+        }
+    })
+    export default class NavMenu extends Vue {
 
-    get authenticationState(): UserModels.AuthState {
-        console.log('auth state is ', appState.authenticationState);
-        return appState.authenticationState;
-    }
-    get profile(): (UserModels.UserProfile | null) {
-        return userModule.profile;
-    }
+        get authenticationState(): UserModels.AuthState {
+            console.log("auth state is ", appState.authenticationState);
+            return appState.authenticationState;
+        }
+        get profile(): (UserModels.IUserProfile | null) {
+            return userModule.profile;
+        }
 
-    logout($event : any): void {
-        $event.preventDefault();
-        console.log('sigining out');
-        userModule.logout();
+        logout($event : any): void {
+            $event.preventDefault();
+            console.log("sigining out");
+            userModule.logout();
+        }
     }
-}
 </script>

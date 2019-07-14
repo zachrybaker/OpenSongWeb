@@ -8,6 +8,7 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 // Custom variables
 let isProduction = false;
@@ -39,7 +40,7 @@ fs.readdirSync(applicationBasePath).forEach(function (name) {
 // Stuff that needs to always be there, explicitly, rather than by dependency resolution.
 appEntryFiles["vendor"] = [
     path.resolve(__dirname, "ClientApp/common/design/site.scss"),
-    path.resolve(__dirname, "ClientAppConfig.ts")
+    path.resolve(__dirname, "ClientApp.config.ts")
 ]
 
 module.exports = function (env, argv) {
@@ -53,6 +54,7 @@ module.exports = function (env, argv) {
 
     return {
         mode: 'development', // TODO: Fix this hack.
+        context: __dirname, // to automatically find tsconfig.json
         entry: appEntryFiles,
         output: {
             path: path.resolve(__dirname, "wwwroot/dist"),
@@ -95,7 +97,17 @@ module.exports = function (env, argv) {
                     loader: "babel-loader",
                     exclude: /node_modules/,
                 },
-                /* config.module.rule('ts') */
+                /* config.module.rule('ts') */ {
+                    test: /\.ts$/,
+                    enforce: 'pre',
+                    use: [
+                        {
+
+                            loader: 'tslint-loader',
+                            options: {}
+                        }
+                     ]
+                },
                 {
                     test: /\.ts$/,
                     loader: "ts-loader",
@@ -230,7 +242,8 @@ module.exports = function (env, argv) {
                 test: /\.js$|\.css$|\.html$/,
                 filename: "[path].gz[query]",
                 algorithm: "gzip"
-            })
+            }),
+            new ForkTsCheckerWebpackPlugin()
         ]
     };
 };

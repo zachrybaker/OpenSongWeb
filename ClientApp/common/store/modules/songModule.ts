@@ -1,14 +1,14 @@
-﻿import { getModule, Module, MutationAction, VuexModule, Mutation, Action, } from 'vuex-module-decorators'
-import store from '../store'
-import { serverAPI } from '../internal/api';
+﻿import { getModule, Module, MutationAction, VuexModule, Mutation, Action, } from "vuex-module-decorators";
+import store from "../store";
+import { serverAPI } from "../internal/api";
 
-import { songUtils } from '../internal/helpers/songUtils'
-import { SongModel } from "@/common/models/songModels"
+import { songUtils } from "../internal/helpers/songUtils";
+import { SongModel } from "@/common/models/songModels";
 
 @Module({
     namespaced: true,
     dynamic: true, 
-    name: 'song',
+    name: "song",
     store: store
 })
 class SongModule extends VuexModule {
@@ -17,7 +17,7 @@ class SongModule extends VuexModule {
     songResults: SongModel.SongBrief[] | null = null;
     filteredSongResults: SongModel.SongBrief[] | null = null;
     searchParameters?: SongModel.SongSearchParameters; 
-    clientFilter: string = '';
+    clientFilter: string = "";
 
     @Mutation
     setSong(song: SongModel.Song) {
@@ -53,26 +53,26 @@ class SongModule extends VuexModule {
     @Action
     async getSong(id: string) {
         let song = await serverAPI.songService.getSong(id);
-        console.log('got the song', song);
-        this.context.commit('setSong', song)
+        console.log("got the song", song);
+        this.context.commit("setSong", song)
     }
 
     @Action
     async searchSongs(searchParameters?: SongModel.SongSearchParameters) {
-        console.log('action searchSongs');
+        console.log("action searchSongs");
         let songs = await serverAPI.songService.searchSongs(searchParameters);
-        console.log('got songs',songs);
-        this.context.commit('setSearchParams', searchParameters);
-        this.context.commit('setSongBriefs', songs);
-        this.context.commit('filterSongs', songUtils.filterSongBriefs(this.songResults, this.clientFilter));
+        console.log("got songs",songs);
+        this.context.commit("setSearchParams", searchParameters);
+        this.context.commit("setSongBriefs", songs);
+        this.context.commit("filterSongs", songUtils.filterSongBriefs(this.songResults, this.clientFilter));
     }
 
     @Action
     async clientFilterChanged(filter: string) {
-        this.context.commit('setClientFilter', filter);
+        this.context.commit("setClientFilter", filter);
         let fs = songUtils.filterSongBriefs(this.songResults, this.clientFilter);
-        console.log(' filtered to ', fs.length, ' songs');
-        this.context.commit('filterSongs', fs);
+        console.log(" filtered to ", fs.length, " songs");
+        this.context.commit("filterSongs", fs);
     }
 
     @Action
