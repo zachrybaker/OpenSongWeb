@@ -15,6 +15,8 @@
     "lib": ["es2016", "dom"],
     "outDir": "JsFiles",
 
+    /* "allowSyntheticDefaultImports":  true, /* attempt to make the import for firebase happy */
+
     /* https://decembersoft.com/posts/say-goodbye-to-relative-paths-in-typescript-imports/*/
     "baseUrl": "./",
     "paths": {

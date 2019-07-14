@@ -4,3 +4,4 @@ obj/
 .vs/
 wwwroot/dist/
 OpenSongWeb.csproj.user
+ClientApp.config.ts
