@@ -20,8 +20,8 @@
     })
     export default class Login extends Vue {
         // TODO: Make this a dressed-up view, possibly even a modal.
-        email: string = "zachgotnosauce@gmail.com";
-        password: string = "Gopher@1";
+        email: string = "";
+        password: string = "";
         async login(): Promise<void>
         {
             const emailPassword: UserModels.EmailPassword = {
