@@ -69,6 +69,7 @@ namespace OpenSongWeb.Managers
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
+                _logger.LogInformation("Created directory {0}.", path);
             }
         }
 
@@ -86,9 +87,17 @@ namespace OpenSongWeb.Managers
 
             if (!_incomingFolder.Exists)
             {
-                // This is only an error if someone actually intended to have files available.
-                _logger.LogInformation("Could not perform XML data import. Incoming directory {0} does not exist", _incomingFolder.FullName);
-                return;
+                try
+                {
+                    CreateDirectoryIfNeeded(_incomingFolder.FullName);
+                    CreateDirectoryIfNeeded(Path.Combine(_incomingFolder.FullName, "OSSongs"));
+                }
+                catch(IOException ex)
+                {
+                    // This is only an error if someone actually intended to have files available.
+                    _logger.LogError("Could not perform XML data import. Incoming directory {0} does not exist, could not create.", _incomingFolder.FullName);
+                    return;
+                }
             }
             else 
             {
@@ -266,7 +275,7 @@ namespace OpenSongWeb.Managers
                     }
 
                     OSSong otherSong = await _osSongRepo.GetByFilename(song.Filename);
-                    IEnumerable<OSSong> songsByName = await _osSongRepo.All(new SongFilterParameter { Title = song.Title });
+                    IEnumerable<OSSong> songsByName = await _osSongRepo.All(new SongFilterParameter { title = song.Title });
 
                     if (otherSong != null)
                     {
